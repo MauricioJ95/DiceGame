@@ -32,14 +32,6 @@ namespace DiceRoll
         }
 
 
-
-
-
-
-        
-
-
-
         public static bool AskToRoll()
         {
             bool roll;
