@@ -8,57 +8,63 @@ namespace DiceRoll
 {
     class Program
     {
+        static Random random = new Random();
         static void Main(string[] args)
         {
-            bool r = true;
-            Console.WriteLine("Welcome to the Grand Circus Casino! Roll the Dice? (y/n)");
-            r = AskToRoll();
-        }
+            bool shouldContinue;
 
+            int rollCount = 1;
 
+            Console.WriteLine("Welcome to the Grand Circus Casino!");
 
-        public static int RollingDice()
-        {
-            var rolls = new Random();
-            Console.WriteLine("How many sides should the die have?");
-            int sides = int.Parse(Console.ReadLine());
-
-            for (int i = 0; i <= sides; i++)
+            do
             {
-                Console.WriteLine(rolls.Next(sides));
-                rolls = RollingDice();
-            }
-            return RollingDice;
+                Console.WriteLine("How many sides should each die have?");
+
+                int numberOfSides = int.Parse(Console.ReadLine());
+
+                int firstValue = RollDice(numberOfSides);
+
+                int secondValue = RollDice(numberOfSides);
+
+                Console.WriteLine($"Roll {rollCount}");
+                Console.WriteLine(firstValue);
+                Console.WriteLine(secondValue);
+                Console.WriteLine();
+
+                Console.WriteLine("Roll again?");
+
+                shouldContinue = AskToRoll();
+
+                rollCount++;
+
+            } while (shouldContinue);
         }
 
-
-
-
-
-
-        
-
-
+        private static int RollDice(int numberOfSides)
+        {
+            return random.Next(1, numberOfSides + 1);
+        }
 
         public static bool AskToRoll()
         {
-            bool roll;
+            bool shouldContinue;
             Console.WriteLine("Do you want to continue? (y/n)");
             string input = Console.ReadLine();
             if (input.Equals("y", StringComparison.InvariantCultureIgnoreCase))
             {
-                roll = true;
+                shouldContinue = true;
             }
             else if (input.Equals("n", StringComparison.InvariantCultureIgnoreCase))
             {
-                roll = false;
+                shouldContinue = false;
             }
             else
             {
                 Console.WriteLine("Are you missing your Y and N keys? Try again.");
-                roll = AskToRoll();
+                shouldContinue = AskToRoll();
             }
-            return roll;
+            return shouldContinue;
         }
     }
 }
